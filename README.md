@@ -6,7 +6,9 @@ https://laravel.com/docs/9.x/sanctum
 
 Доступ к ресурсам Api предоставляется на основе токена от Sanctum для каждого пользователя.
 
-Существующие роуты:
+Есть две таблицы - 'users' (20 records) и 'tasks' (200 records).
+
+### Существующие роуты:
 
 Register:
 ```bash
@@ -80,10 +82,14 @@ Get Tasks by filter:priority:
 https://api-laravel.getyoursite.info/api/tasks?filter=priority:low
 ```
 
-### Тестирование
+## Тестирование
+
+По умлочанию есть действующая регистрация пользователя id = 1. Но нужно залогиниться (см. ниже).
+
+Установлено ограничение доступа к данным для пользователей. Пользователь может работать только со своими задачами.
 
 Для тестирования можно использовать Postman. Нужно зарегистрироваться или войти
-в свой аккаунт.
+в свой аккаунт Postman.
 
 ```bash
 https://www.postman.com/
@@ -118,6 +124,10 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 ![image 4](public/images/4.png)
 
 Теперь вы можете протестровать все запросы к Api.
+
+Пример:
+
+![image 5](public/images/5.png)
 
 Код можно посмотреть здесь:
 
