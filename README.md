@@ -47,11 +47,6 @@ Get all Tasks:
 https://api-laravel.getyoursite.info/api/tasks
 ```
 
-Get all Tasks:
-```bash
-https://api-laravel.getyoursite.info/api/tasks
-```
-
 Get one Tasks:
 ```bash
 https://api-laravel.getyoursite.info/api/tasks/9
