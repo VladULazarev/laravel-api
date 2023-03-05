@@ -102,17 +102,19 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 Из списка 'Api Requests' выберите запрос 'Login' и нажмите на кнопку 'Send'.
 Скопируйте Token:
 
-(https://api-laravel.getyoursite.info/public/images/1.png)
+<img src="https://api-laravel.getyoursite.info/public/images/1.png">
 
 Кликните 'My Workspace' и потом 'Environments':
 
 ![alt text](https://api-laravel.getyoursite.info/public/images/2.png)
 
 Кликните 'Globals':
+
 ![alt text](https://api-laravel.getyoursite.info/public/images/3.png)
 
 Вставьте Token в поля таблицы и заполните другие поля как показано на срине и
 ОБЯЗЯТЕЛЬНО нажмите 'Save':
+
 ![alt text](https://api-laravel.getyoursite.info/public/images/4.png)
 
 Теперь вы можете протестровать все запросы к Api.
