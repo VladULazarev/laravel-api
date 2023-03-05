@@ -102,7 +102,7 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 Из списка 'Api Requests' выберите запрос 'Login' и нажмите на кнопку 'Send'.
 Скопируйте Token:
 
-<img src="https://api-laravel.getyoursite.info/public/images/1.png">
+![My Remote Image](https://api-laravel.getyoursite.info/public/images/1.png)
 
 Кликните 'My Workspace' и потом 'Environments':
 
