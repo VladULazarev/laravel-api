@@ -106,7 +106,7 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 
 Кликните 'My Workspace' и потом 'Environments':
 
-![alt text](https://api-laravel.getyoursite.info/public/images/2.png)
+![image 2](public/images/2.png)
 
 Кликните 'Globals':
 
