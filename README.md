@@ -102,7 +102,7 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 ```
 
 Выберите любой запрос из списка 'Api Requests'.
-Наведите курсор на кнопку 'Send' и нажмите на появившуюся кнопку 'Create Fork'
+Наведите курсор на кнопку 'Send' и нажмите на появившуюся кнопку 'Create a Fork'
 и далее нажмите на кнопку 'Forк Collection'.
 
 Из списка 'Api Requests' выберите запрос 'Login' и нажмите на кнопку 'Send'.
@@ -129,8 +129,3 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 
 ![image 5](public/images/5.png)
 
-Код можно посмотреть здесь:
-
-```bash
-https://github.com/VladULazarev/laravel-api
-```
