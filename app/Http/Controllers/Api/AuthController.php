@@ -24,7 +24,7 @@ class AuthController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(LoginUserRequest $request)
-    {dd($request);
+    {
         $credentials = ['email' => $request->email, 'password' => $request->password];
 
         if (! Auth::attempt($credentials)) {
