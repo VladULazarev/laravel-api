@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TaskResource;
+use App\Http\Resources\TasksResource;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -35,11 +35,11 @@ class TaskController extends Controller
 
             [$criteria, $value] = explode(':', request('filter'));
 
-            $tasks = TaskResource::collection(
+            $tasks = TasksResource::collection(
                 Task::where('user_id', Auth::user()->id)
                 ->where($criteria, 'like', "%$value%")
-                ->orderBy('created_at', 'desc')
-                ->paginate(5)
+                ->latest('id')
+                ->get()
             );
 
             if (! count($tasks)) {
@@ -55,8 +55,8 @@ class TaskController extends Controller
          * http://laravel-api/api/tasks,
          * http://laravel-api/api/tasks?page={page_number},
          */
-        $tasks = TaskResource::collection(
-            Task::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(5)
+        $tasks = TasksResource::collection(
+            Task::where('user_id', Auth::user()->id)->latest('id')->paginate(5)
         );
 
         if (! count($tasks)) {
@@ -81,7 +81,7 @@ class TaskController extends Controller
             'priority' => $request->priority
         ]);
 
-        return new TaskResource($task);
+        return new TasksResource($task);
     }
 
     /**
@@ -94,11 +94,11 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
 
-        if ( $this->checkTaskAndAuthorization($task) ) {
-            return $this->checkTaskAndAuthorization($task);
+        if (! $task) {
+            return $this->error('', 'The resource you requested could not be found', 404);
         }
 
-        return new TaskResource($task);
+        return $this->isNotAuthorized($task) ? $this->isNotAuthorized($task) : new TasksResource($task);
     }
 
     /**
@@ -108,17 +108,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
-        $task = Task::find($id);
-
-        if ( $this->checkTaskAndAuthorization($task) ) {
-            return $this->checkTaskAndAuthorization($task);
+        if ( Auth::user()->id !== $task->user_id ) {
+            return $this->error('', 'You are not authorized to make this request', 403);
         }
 
         $task->update($request->all());
 
-        return new TaskResource($task);
+        return new TasksResource($task);
     }
 
     /**
@@ -131,28 +129,28 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
 
-        if ( $this->checkTaskAndAuthorization($task) ) {
-            return $this->checkTaskAndAuthorization($task);
-        }
-
-        $task->delete();
-
-        return $this->success('', 'The resource was deleted.', 200);
-    }
-
-    /**
-     * Ckeck if the resource exists and the user is authorized to make
-     * the current request
-     *
-     * @param  App\Models\Task $task
-     * @return \Illuminate\Http\Response
-     */
-    private function checkTaskAndAuthorization($task)
-    {
         if (! $task) {
             return $this->error('', 'The resource you requested could not be found', 404);
         }
 
+        if ( $this->isNotAuthorized($task) ) {
+            return $this->isNotAuthorized($task);
+        }
+
+        $task->delete();
+
+        return $this->success('', 'The resource was deleted', 200);
+    }
+
+    /**
+     * Ckeck if the user is authorized to make the current request (By default,
+     * the current user can only manage his own tasks)
+     *
+     * @param  App\Models\Task $task
+     * @return \Illuminate\Http\Response
+     */
+    private function isNotAuthorized($task)
+    {
         if ( Auth::user()->id !== $task->user_id ) {
             return $this->error('', 'You are not authorized to make this request', 403);
         }
