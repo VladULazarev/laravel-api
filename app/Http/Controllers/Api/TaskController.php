@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TasksResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,9 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return TasksResource|JsonResponse
      */
-    public function index()
+    public function index(): TasksResource|JsonResponse
     {
         /**
          * Return 'collection' for the following requests with 'filter':
@@ -31,12 +32,12 @@ class TaskController extends Controller
          * http://laravel-api/api/tasks?filter=priority:{priority}
          * We use 'like' in the 'where' clause
          */
-        if ( request()->filled('filter') && Auth::user() ) {
+        if ( request()->filled('filter') && Auth::check() ) {
 
             [$criteria, $value] = explode(':', request('filter'));
 
             $tasks = TasksResource::collection(
-                Task::where('user_id', Auth::user()->id)
+                Task::where('user_id', Auth::id())
                 ->where($criteria, 'like', "%$value%")
                 ->latest('id')
                 ->get()
@@ -69,13 +70,13 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreTaskRequest $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreTaskRequest $request
+     * @return TasksResource
      */
-    public function store(StoreTaskRequest $request)
+    public function store(StoreTaskRequest $request): TasksResource
     {
         $task = Task::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'name' => $request->name,
             'description' => $request->description,
             'priority' => $request->priority
@@ -87,30 +88,34 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse|TasksResource
      */
-    public function show($id)
+    public function show(int $id): TasksResource|JsonResponse
     {
         $task = Task::find($id);
 
-        if (! $task) {
+        if (!$task) {
             return $this->error('', 'The resource you requested could not be found', 404);
         }
 
-        return $this->isNotAuthorized($task) ? $this->isNotAuthorized($task) : new TasksResource($task);
+        if (!$this->isAuthorized($task)) {
+            return $this->error('', 'You are not authorized to make this request', 403);
+        }
+
+        return new TasksResource($task);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param  Task  $task
+     * @return JsonResponse|TasksResource
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task): TasksResource|JsonResponse
     {
-        if ( Auth::user()->id !== $task->user_id ) {
+        if (!$this->isAuthorized($task)) {
             return $this->error('', 'You are not authorized to make this request', 403);
         }
 
@@ -122,19 +127,19 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $task = Task::find($id);
 
-        if (! $task) {
+        if (!$task) {
             return $this->error('', 'The resource you requested could not be found', 404);
         }
 
-        if ( $this->isNotAuthorized($task) ) {
-            return $this->isNotAuthorized($task);
+        if (!$this->isAuthorized($task)) {
+            return $this->error('', 'You are not authorized to make this request', 403);
         }
 
         $task->delete();
@@ -143,16 +148,14 @@ class TaskController extends Controller
     }
 
     /**
-     * Ckeck if the user is authorized to make the current request (By default,
-     * the current user can only manage his own tasks)
+     * Check if the user is authorized to make the current request (By default,
+     * the current user can only manage their own tasks)
      *
-     * @param  App\Models\Task $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return bool
      */
-    private function isNotAuthorized($task)
+    private function isAuthorized(Task $task): bool
     {
-        if ( Auth::user()->id !== $task->user_id ) {
-            return $this->error('', 'You are not authorized to make this request', 403);
-        }
+        return Auth::id() === $task->user_id;
     }
 }
