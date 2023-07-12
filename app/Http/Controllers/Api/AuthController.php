@@ -26,7 +26,6 @@ class AuthController extends Controller
      */
     public function login(LoginUserRequest $request): JsonResponse
     {
-       // $credentials = ['email' => $request->email, 'password' => $request->password];
         $credentials = $request->only('email', 'password');
 
         if (! Auth::attempt($credentials)) {
@@ -35,7 +34,6 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        //$token = $user->createToken('API Token of ' . $user->name);
         $token = $user->createToken('API Token of ' . $user->name)->plainTextToken;
 
         return $this->success([
