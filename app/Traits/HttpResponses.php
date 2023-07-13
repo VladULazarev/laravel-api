@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait HttpResponses
 {
-    protected function success($data, $message = null, $code = 200)
+    protected function success($data, $message = null, $code = 200): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => 'Request was successful.',
@@ -14,7 +14,7 @@ trait HttpResponses
         ], $code);
     }
 
-    protected function error($data, $message = null, $code)
+    protected function error($data, $message = null, $code): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => 'Error has occurred...',
