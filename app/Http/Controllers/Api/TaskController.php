@@ -149,7 +149,7 @@ class TaskController extends Controller
 
     /**
      * Check if the user is authorized to make the current request (By default,
-     * the current user can only manage their own tasks)
+     * the current user can only manage his/her own tasks)
      *
      * @param Task $task
      * @return bool
