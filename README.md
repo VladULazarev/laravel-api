@@ -1,4 +1,4 @@
-## Api на Laravel 9 с использованием Laravel Sanctum: https://laravel.com/docs/9.x/sanctum
+## Api на Laravel 9 с использованием Laravel Sanctum: 
 
 Доступ к ресурсам Api предоставляется на основе токена от Sanctum для каждого пользователя.
 
