@@ -155,7 +155,7 @@ description, priority, created_at, updated_at.
 
 Нужно выбрать один из параметров из меню 'Select data for searching' и в поле 'Search' напечатать не менее двух символов.
 
-Код можно посмотреть здесь: https://github.com/VladULazarev/get-api-resources
+Код можно посмотреть здесь: 
 
 ```bash
 https://github.com/VladULazarev/get-api-resources
