@@ -73,9 +73,9 @@ Get Tasks by filter:priority:
 https://api-laravel.getyoursite.info/api/tasks?filter=priority:low
 ```
 
-### Тестирование возможно двумя спопсобами
+### Тестирование 
 
-## 1. Postman
+## Postman
 
 Для тестирования можно использовать Postman. Нужно зарегистрироваться или войти
 в свой аккаунт Postman.
@@ -123,40 +123,3 @@ https://www.postman.com/speeding-firefly-941566/workspace/api-laravel/collection
 Пример:
 
 ![image 5](public/images/5.png)
-
-## 2. Тестирование с помощью интерфейса на другом домене
-
-Перейдите по адресу:
-
-```bash
-https://get-api-resources.getyoursite.info/
-```
-
-Все данные поступают с https://api-laravel.getyoursite.info/
-
-Нужно залогиниться.
-
-Email:
-
-```bash
-admin@mail.com
-```
-
-Password:
-
-```bash
-123456789
-```
-
-![image 6](public/images/6.png)
-
-Можно просмотреть все задачи текущего пользователя, отредактировать задачу, удалить задачу.
-
-Или выполнить поиск по выбранным параметрам - name, description, priority, created_at, updated_at.
-Нужно выбрать один из параметров из меню 'Select data for searching' и в поле 'Search' напечатать не менее двух символов.
-
-Код можно посмотреть здесь: 
-
-```bash
-https://github.com/VladULazarev/get-api-resources
-```
