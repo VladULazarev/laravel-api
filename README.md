@@ -8,69 +8,69 @@
 
 Register:
 ```bash
-https://api-laravel.getyoursite.info/api/register
+https://laravel-api.vlgroove.space/api/register
 ```
 
 Login:
 ```bash
-https://api-laravel.getyoursite.info/api/login
+https://laravel-api.vlgroove.space/api/login
 ```
 
 Logout:
 ```bash
-https://api-laravel.getyoursite.info/api/logout
+https://laravel-api.vlgroove.space/api/logout
 ```
 
 Create new Task:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks
+https://laravel-api.vlgroove.space/api/tasks
 ```
 
 Update Task:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks/202
+https://laravel-api.vlgroove.space/api/tasks/202
 ```
 
 Delete Task:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks/202
+https://laravel-api.vlgroove.space/api/tasks/202
 ```
 
 ### Фильтрация данных по различным параметрам:
 
 Get all Tasks:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks
+https://laravel-api.vlgroove.space/api/tasks
 ```
 
 Get one Tasks:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks/9
+https://laravel-api.vlgroove.space/api/tasks/9
 ```
 
 Get Tasks by page number:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks?page=2
+https://laravel-api.vlgroove.space/api/tasks?page=2
 ```
 
 Get Tasks by filter:created_at:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks?filter=created_at:2023-03-04
+https://laravel-api.vlgroove.space/api/tasks?filter=created_at:2023-03-04
 ```
 
 Get Tasks by filter:name:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks?filter=name:or
+https://laravel-api.vlgroove.space/api/tasks?filter=name:or
 ```
 
 Get Tasks by filter:description:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks?filter=description:dolor
+https://laravel-api.vlgroove.space/api/tasks?filter=description:dolor
 ```
 
 Get Tasks by filter:priority:
 ```bash
-https://api-laravel.getyoursite.info/api/tasks?filter=priority:low
+https://laravel-api.vlgroove.space/api/tasks?filter=priority:low
 ```
 
 ### Тестирование 
